@@ -1,6 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Your Website</title>
+  <style>
+    #ad-top-banner, #ad-bottom-banner {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      z-index: 9999;
+      background: transparent;
+      text-align: center;
+    }
+
+    #ad-top-banner {
+      top: 0;
+    }
+
+    #ad-bottom-banner {
+      bottom: 0;
+    }
+
+    body {
+      padding-top: 60px; /* To avoid content under top ad */
+      padding-bottom: 60px; /* To avoid content under bottom ad */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Ad -->
+  <div id="ad-top-banner">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '21981773a1443e53d895847201b84176',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
+  </div>
+
+  <!-- Your Website Content -->
+  <div>
+    <h1>Welcome to My Website</h1>
+    <p>Your content goes here...</p>
+  </div>
+
+  <!-- Bottom Ad -->
+  <div id="ad-bottom-banner">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '21981773a1443e53d895847201b84176',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
+  </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lucky Day Finder</title>
@@ -19,7 +87,7 @@
 </head>
 <body class="bg-gradient-to-br from-purple-700 to-indigo-800 min-h-screen flex items-center justify-center p-4">
   <div class="bg-white max-w-lg w-full p-6 rounded-2xl shadow-2xl text-center relative z-10">
-    <h1 class="text-4xl font-extrabold text-purple-700 mb-2 animate-bounce">”9ç6 Lucky Day Finder</h1>
+    <h1 class="text-4xl font-extrabold text-purple-700 mb-2 animate-bounce">ðŸ”® Lucky Day Finder</h1>
     <p class="text-gray-600 mb-6">Get a prediction based on your name, date & gender!</p>
 
     <input id="name" type="text" placeholder="Your Name" class="w-full p-3 mb-3 rounded-lg border" />
@@ -35,17 +103,17 @@
     <button onclick="generatePrediction()" class="bg-purple-600 text-white py-3 w-full rounded-lg font-semibold hover:bg-purple-700 transition">Reveal My Prediction</button>
 
     <div id="result" class="hidden mt-6 text-left bg-gray-100 p-4 rounded-xl">
-      <div id="celebration" class="text-center mb-3 text-3xl emoji-celebration">”9½5”9²97¿8”9½6</div>
-      <h2 class="text-lg font-bold text-indigo-700 mb-2">7¿8 Your Lucky Day Prediction:</h2>
-      <p><strong>”9½5 Lucky Day:</strong> <span id="luckyDay"></span></p>
-      <p><strong>”9æ4 Lucky Number:</strong> <span id="luckyNumber"></span></p>
-      <p><strong>•0‹4 Success Path:</strong> <span id="success"></span></p>
-      <p><strong>”9¼7 Upcoming Surprise:</strong> <span id="surprise"></span></p>
+      <div id="celebration" class="text-center mb-3 text-3xl emoji-celebration">ðŸŽ‰ðŸŒŸâœ¨ðŸŽŠ</div>
+      <h2 class="text-lg font-bold text-indigo-700 mb-2">âœ¨ Your Lucky Day Prediction:</h2>
+      <p><strong>ðŸŽ‰ Lucky Day:</strong> <span id="luckyDay"></span></p>
+      <p><strong>ðŸ”¢ Lucky Number:</strong> <span id="luckyNumber"></span></p>
+      <p><strong>ðŸš€ Success Path:</strong> <span id="success"></span></p>
+      <p><strong>ðŸŽ Upcoming Surprise:</strong> <span id="surprise"></span></p>
 
       <div class="mt-4 flex flex-col gap-2">
-        <button onclick="shareWhatsApp()" class="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">”9á6 Share on WhatsApp</button>
-        <button onclick="shareFacebook()" class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">”9è3 Share on Facebook</button>
-        <button onclick="shareTwitter()" class="bg-black text-white py-2 rounded-lg hover:bg-gray-800">”9Í2 Share on X (Twitter)</button>
+        <button onclick="shareWhatsApp()" class="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">ðŸ“² Share on WhatsApp</button>
+        <button onclick="shareFacebook()" class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">ðŸ”µ Share on Facebook</button>
+        <button onclick="shareTwitter()" class="bg-black text-white py-2 rounded-lg hover:bg-gray-800">ðŸ¦ Share on X (Twitter)</button>
       </div>
     </div>
   </div>
@@ -87,7 +155,7 @@
 
       const surpriseList = [
         `A stranger's message may change everything for you.`,
-        `An unexpected blessing is on its way ¡ª stay open.`,
+        `An unexpected blessing is on its way â€” stay open.`,
         `Someone from the past will bring joyful news.`,
         `A special invitation is arriving that changes your path.`
       ];
@@ -96,7 +164,7 @@
       document.getElementById("luckyNumber").innerText = luckyNumber;
       document.getElementById("success").innerText = successList[hash % successList.length];
       document.getElementById("surprise").innerText = surpriseList[(hash + 1) % surpriseList.length];
-      document.getElementById("celebration").innerText = "”9½6”9½57¿8”9²9”9¼7";
+      document.getElementById("celebration").innerText = "ðŸŽŠðŸŽ‰âœ¨ðŸŒŸðŸŽ";
       document.getElementById("result").classList.remove("hidden");
     }
 
@@ -108,7 +176,7 @@
       const success = document.getElementById("success").innerText;
       const surprise = document.getElementById("surprise").innerText;
 
-      const msg = `”9ç6 ${pronoun} Lucky Day Prediction:\n”9½5 Lucky Day: ${luckyDay}\n”9æ4 Lucky Number: ${luckyNumber}\n•0‹4 Success: ${success}\n”9¼7 Surprise: ${surprise}\n\n”9ä9 ${pronoun} prediction is revealed! Now it's your turn to check your future luck ”9Ð7 https://luckydayfinder.com`;
+      const msg = `ðŸ”® ${pronoun} Lucky Day Prediction:\nðŸŽ‰ Lucky Day: ${luckyDay}\nðŸ”¢ Lucky Number: ${luckyNumber}\nðŸš€ Success: ${success}\nðŸŽ Surprise: ${surprise}\n\nðŸ”“ ${pronoun} prediction is revealed! Now it's your turn to check your future luck ðŸ‘‰ https://luckydayfinder.com`;
 
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
@@ -120,19 +188,47 @@
 
     function shareTwitter() {
       const link = encodeURIComponent("https://luckydayfinder.com");
-      const tweet = encodeURIComponent("”9ç6 Discover your Lucky Day Prediction now! ”9½57¿8");
+      const tweet = encodeURIComponent("ðŸ”® Discover your Lucky Day Prediction now! ðŸŽ‰âœ¨");
       window.open(`https://twitter.com/intent/tweet?text=${tweet}&url=${link}`, '_blank');
     }
   </script>
 </body>
 </html>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '27817b48069ff9cb039d72c587c174f4',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/27817b48069ff9cb039d72c587c174f4/invoke.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Website</title>
+  <style>
+    #ad-bottom-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      z-index: 9999;
+      background: transparent;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Your Website Content Here -->
+
+  <!-- Ad Banner at Bottom -->
+  <div id="ad-bottom-banner">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '21981773a1443e53d895847201b84176',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
+  </div>
+
+</body>
+</html>
