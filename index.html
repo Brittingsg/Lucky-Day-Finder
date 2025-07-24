@@ -1,234 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your Website</title>
-  <style>
-    #ad-top-banner, #ad-bottom-banner {
-      position: fixed;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      z-index: 9999;
-      background: transparent;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plucky Day Finder | Discover Your Luck</title>
+    <meta name="description" content="Find your lucky day, upcoming surprise date, and personal fortune with Plucky Day Finder!">
+    
+    <!-- Open Graph for WhatsApp/Facebook preview -->
+    <meta property="og:title" content="Plucky Day Finder - Discover Your Luck">
+    <meta property="og:description" content="Find your lucky day, upcoming surprise date, and personal fortune instantly!">
+    <meta property="og:image" content="https://i.ibb.co/Z6LchqX/lucky-day-preview.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:type" content="website">
 
-    #ad-top-banner {
-      top: 0;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    #ad-bottom-banner {
-      bottom: 0;
-    }
-
-    body {
-      padding-top: 60px; /* To avoid content under top ad */
-      padding-bottom: 60px; /* To avoid content under bottom ad */
-    }
-  </style>
+    <style>
+        :root {--primary-color:#ffffff;--secondary-color:#ffcc00;--background-start:#0f0c29;--background-mid:#302b63;--background-end:#24243e;--card-background:rgba(255,255,255,0.1);--shadow-color:rgba(0,0,0,0.3);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--background-start),var(--background-mid),var(--background-end));color:var(--primary-color);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
+        .container{width:100%;max-width:500px;background:var(--card-background);backdrop-filter:blur(10px);border-radius:20px;border:1px solid rgba(255,255,255,0.2);box-shadow:0 8px 32px 0 var(--shadow-color);padding:20px 20px 40px;text-align:center;}
+        .header h1{font-size:2.5rem;font-weight:700;margin-bottom:10px;background:-webkit-linear-gradient(45deg,#ffcc00,#ff6a00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .header p{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,0.8);margin-bottom:20px;}
+        .input-group{margin-bottom:20px;text-align:left;}
+        .input-group label{display:block;margin-bottom:8px;font-weight:400;color:rgba(255,255,255,0.9);}
+        .input-group input,.input-group select{width:100%;padding:12px 15px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.3);border-radius:8px;color:var(--primary-color);font-size:1rem;font-family:'Poppins',sans-serif;transition:border-color 0.3s,box-shadow 0.3s;}
+        .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--secondary-color);box-shadow:0 0 10px rgba(255,204,0,0.3);}
+        input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);}
+        .submit-btn{width:100%;padding:15px;border:none;border-radius:8px;background:linear-gradient(45deg,#ff6a00,#ffcc00);color:#111;font-size:1.2rem;font-weight:600;cursor:pointer;transition:transform 0.2s,box-shadow 0.3s;}
+        .submit-btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(255,170,0,0.4);}
+        .loading-spinner{display:none;margin:40px auto;border:5px solid rgba(255,255,255,0.2);border-radius:50%;border-top:5px solid var(--secondary-color);width:50px;height:50px;animation:spin 1s linear infinite;}
+        @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        .results-card{display:none;margin-top:30px;padding:30px;background:rgba(0,0,0,0.2);border-radius:15px;animation:fadeIn 1s ease-in-out;}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+        #result-name{font-weight:300;font-size:1.2rem;margin-bottom:20px;}
+        #result-name span{font-weight:600;color:var(--secondary-color);}
+        .result-item{margin-bottom:15px;}
+        .result-item h3{font-size:1rem;font-weight:400;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+        .result-item p{font-size:1.8rem;font-weight:600;color:var(--primary-color);}
+        .share-section{margin-top:30px;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;}
+        .share-buttons{display:flex;justify-content:center;gap:15px;}
+        .share-btn{display:inline-flex;align-items:center;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:500;transition:transform 0.2s,background-color 0.3s;}
+        .share-btn:hover{transform:scale(1.05);}
+        .share-btn.whatsapp{background-color:#25D366;color:white;}
+        .share-btn.copy-link{background-color:#6c757d;color:white;cursor:pointer;border:none;font-family:'Poppins',sans-serif;font-size:1rem;}
+        .share-btn svg{margin-right:8px;width:20px;height:20px;}
+        /* Ad container */
+        .ad-container{margin:15px 0;text-align:center;}
+        .ad-container iframe{max-width:100%;border:none;}
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Top Banner Ad -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '0c1041a7652f383c89737d975f852e23',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/0c1041a7652f383c89737d975f852e23/invoke.js"></script>
+        </div>
 
-  <!-- Top Ad -->
-  <div id="ad-top-banner">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '21981773a1443e53d895847201b84176',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
-  </div>
+        <div class="header">
+            <h1>Plucky Day Finder</h1>
+            <p>Enter your details to discover your fortune and a future surprise!</p>
+        </div>
+        <form id="lucky-form">
+            <div class="input-group"><label for="fullName">Full Name</label><input type="text" id="fullName" placeholder="e.g., Alex Johnson" required></div>
+            <div class="input-group"><label for="dob">Date of Birth</label><input type="date" id="dob" required></div>
+            <div class="input-group"><label for="gender">Gender</label><select id="gender" required><option value="" disabled selected>Select your gender</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select></div>
+            <button type="submit" class="submit-btn">Find My Lucky Day</button>
+        </form>
+        <div class="loading-spinner" id="loading-spinner"></div>
+        <div class="results-card" id="results-card">
+            <h2 id="result-name"></h2>
+            <div class="result-item"><h3>Your Lucky Day of the Week</h3><p id="lucky-day"></p></div>
+            <div class="result-item"><h3>A Future Surprise Awaits On</h3><p id="surprise-day"></p></div>
+            <div class="result-item"><h3>Your Personal Fortune</h3><p id="fortune" style="font-size:1.1rem;font-weight:400;line-height:1.6;"></p></div>
+            <div class="share-section">
+                <div class="share-buttons">
+                    <a id="whatsapp-share" class="share-btn whatsapp" href="#" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.58-1.452L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.115l-1.06 3.868 3.94-1.042z"></path></svg>
+                        WhatsApp
+                    </a>
+                    <button id="copy-link-btn" class="share-btn copy-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
 
-  <!-- Your Website Content -->
-  <div>
-    <h1>Welcome to My Website</h1>
-    <p>Your content goes here...</p>
-  </div>
-
-  <!-- Bottom Ad -->
-  <div id="ad-bottom-banner">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '21981773a1443e53d895847201b84176',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
-  </div>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lucky Day Finder</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .emoji-celebration {
-      font-size: 2rem;
-      animation: pop 0.6s ease-in-out;
-    }
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-purple-700 to-indigo-800 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white max-w-lg w-full p-6 rounded-2xl shadow-2xl text-center relative z-10">
-    <h1 class="text-4xl font-extrabold text-purple-700 mb-2 animate-bounce">🔮 Lucky Day Finder</h1>
-    <p class="text-gray-600 mb-6">Get a prediction based on your name, date & gender!</p>
-
-    <input id="name" type="text" placeholder="Your Name" class="w-full p-3 mb-3 rounded-lg border" />
-    <input id="birthdate" type="date" class="w-full p-3 mb-3 rounded-lg border" />
-
-    <select id="gender" class="w-full p-3 mb-4 rounded-lg border">
-      <option value="">Select Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-
-    <button onclick="generatePrediction()" class="bg-purple-600 text-white py-3 w-full rounded-lg font-semibold hover:bg-purple-700 transition">Reveal My Prediction</button>
-
-    <div id="result" class="hidden mt-6 text-left bg-gray-100 p-4 rounded-xl">
-      <div id="celebration" class="text-center mb-3 text-3xl emoji-celebration">🎉🌟✨🎊</div>
-      <h2 class="text-lg font-bold text-indigo-700 mb-2">✨ Your Lucky Day Prediction:</h2>
-      <p><strong>🎉 Lucky Day:</strong> <span id="luckyDay"></span></p>
-      <p><strong>🔢 Lucky Number:</strong> <span id="luckyNumber"></span></p>
-      <p><strong>🚀 Success Path:</strong> <span id="success"></span></p>
-      <p><strong>🎁 Upcoming Surprise:</strong> <span id="surprise"></span></p>
-
-      <div class="mt-4 flex flex-col gap-2">
-        <button onclick="shareWhatsApp()" class="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">📲 Share on WhatsApp</button>
-        <button onclick="shareFacebook()" class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">🔵 Share on Facebook</button>
-        <button onclick="shareTwitter()" class="bg-black text-white py-2 rounded-lg hover:bg-gray-800">🐦 Share on X (Twitter)</button>
-      </div>
+        <!-- Bottom Banner Ad -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '0c1041a7652f383c89737d975f852e23',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/0c1041a7652f383c89737d975f852e23/invoke.js"></script>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function stringToNumber(str) {
-      return Array.from(str).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('lucky-form');
+    const spinner = document.getElementById('loading-spinner');
+    const resultsCard = document.getElementById('results-card');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('name') && urlParams.has('dob') && urlParams.has('gender')) {
+        const name = decodeURIComponent(urlParams.get('name'));
+        const dob = urlParams.get('dob');
+        const gender = urlParams.get('gender');
+        const results = calculateLuck(name, dob, gender);
+        displayResults(name, results);
+        resultsCard.style.display = 'block';
     }
 
-    function getPronoun(gender) {
-      if (gender === "male") return "His";
-      if (gender === "female") return "Her";
-      return "Their";
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('fullName').value.trim();
+        const dob = document.getElementById('dob').value;
+        const gender = document.getElementById('gender').value;
+        if (!fullName || !dob || !gender) {alert("Please fill out all fields.");return;}
+        resultsCard.style.display = 'none'; spinner.style.display = 'block';
+        setTimeout(() => {
+            const results = calculateLuck(fullName, dob, gender);
+            displayResults(fullName, results);
+            spinner.style.display = 'none'; resultsCard.style.display = 'block';
+            const newUrl = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(fullName)}&dob=${dob}&gender=${gender}`;
+            window.history.replaceState({}, '', newUrl);
+        }, 1500);
+    });
+
+    function calculateLuck(name, dob, gender) {
+        const date = new Date(dob);
+        const nameValue = name.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+        const dateValue = date.getDate() + (date.getMonth() + 1) + date.getFullYear();
+        const seed = nameValue + dateValue;
+        const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const luckyDay = daysOfWeek[seed % 7];
+        const today = new Date();
+        const futureMonthOffset = (seed % 5) + 2;
+        const futureDayOfMonth = (seed % 28) + 1;
+        const surpriseDate = new Date();
+        surpriseDate.setMonth(today.getMonth() + futureMonthOffset);
+        surpriseDate.setDate(futureDayOfMonth);
+        const formattedSurpriseDate = surpriseDate.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+        const fortunes = [
+            "An unexpected opportunity will soon present itself. Be ready to seize it!",
+            "Your creativity will shine, leading to a wonderful breakthrough.",
+            "A journey you've been dreaming of is closer than you think.",
+            "Kindness you've shown in the past will return to you tenfold.",
+            "Focus on your goals; a major achievement is on the horizon.",
+            "You will soon reconnect with an old friend, bringing great joy.",
+            "Your positive energy is attracting success and happiness into your life.",
+            "A moment of clarity will solve a long-standing puzzle for you."
+        ];
+        return { luckyDay, surpriseDay: formattedSurpriseDate, fortune: fortunes[seed % fortunes.length] };
     }
 
-    function generatePrediction() {
-      const name = document.getElementById("name").value.trim();
-      const birthdate = document.getElementById("birthdate").value;
-      const gender = document.getElementById("gender").value;
-
-      if (!name || !birthdate || !gender) {
-        alert("Please complete all fields.");
-        return;
-      }
-
-      const hash = stringToNumber(name + birthdate + gender);
-      const luckyDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-      const planets = ["Mars", "Venus", "Jupiter", "Saturn", "Mercury", "Moon", "Sun"];
-      const luckyDay = luckyDays[hash % luckyDays.length];
-      const rulingPlanet = planets[hash % planets.length];
-      const luckyNumber = (hash % 90) + 10;
-
-      const successList = [
-        `You are ruled by ${rulingPlanet}, which boosts your creative energy.`,
-        `Your birthdate connects you to ${rulingPlanet}, a sign of rising influence.`,
-        `As a child of ${rulingPlanet}, your voice and talent will attract success.`,
-        `The alignment of ${rulingPlanet} supports your bold dreams turning real.`
-      ];
-
-      const surpriseList = [
-        `A stranger's message may change everything for you.`,
-        `An unexpected blessing is on its way — stay open.`,
-        `Someone from the past will bring joyful news.`,
-        `A special invitation is arriving that changes your path.`
-      ];
-
-      document.getElementById("luckyDay").innerText = luckyDay;
-      document.getElementById("luckyNumber").innerText = luckyNumber;
-      document.getElementById("success").innerText = successList[hash % successList.length];
-      document.getElementById("surprise").innerText = surpriseList[(hash + 1) % surpriseList.length];
-      document.getElementById("celebration").innerText = "🎊🎉✨🌟🎁";
-      document.getElementById("result").classList.remove("hidden");
+    function displayResults(name, results) {
+        document.getElementById('result-name').innerHTML = `Fortune for <span>${name}</span>`;
+        document.getElementById('lucky-day').textContent = results.luckyDay;
+        document.getElementById('surprise-day').textContent = results.surpriseDay;
+        document.getElementById('fortune').textContent = results.fortune;
+        let pageUrl = window.location.href;
+        if (!pageUrl.startsWith('http')) pageUrl = 'https://' + pageUrl.replace(/^\/\//, '');
+        const shareText = `�9�9 My Plucky Day Finder results! My lucky day is ${results.luckyDay}, a surprise awaits on ${results.surpriseDay}, and my fortune says: "${results.fortune}" �7�8 Find yours here:`;
+        document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+        const copyBtn = document.getElementById('copy-link-btn');
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(pageUrl).then(() => {
+                copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Copied!`;
+                setTimeout(() => {copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>Copy Link`;},2000);
+            });
+        };
     }
-
-    function shareWhatsApp() {
-      const gender = document.getElementById("gender").value;
-      const pronoun = getPronoun(gender);
-      const luckyDay = document.getElementById("luckyDay").innerText;
-      const luckyNumber = document.getElementById("luckyNumber").innerText;
-      const success = document.getElementById("success").innerText;
-      const surprise = document.getElementById("surprise").innerText;
-
-      const msg = `🔮 ${pronoun} Lucky Day Prediction:\n🎉 Lucky Day: ${luckyDay}\n🔢 Lucky Number: ${luckyNumber}\n🚀 Success: ${success}\n🎁 Surprise: ${surprise}\n\n🔓 ${pronoun} prediction is revealed! Now it's your turn to check your future luck 👉 https://luckydayfinder.com`;
-
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function shareFacebook() {
-      const link = encodeURIComponent("https://luckydayfinder.com");
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${link}`, '_blank');
-    }
-
-    function shareTwitter() {
-      const link = encodeURIComponent("https://luckydayfinder.com");
-      const tweet = encodeURIComponent("🔮 Discover your Lucky Day Prediction now! 🎉✨");
-      window.open(`https://twitter.com/intent/tweet?text=${tweet}&url=${link}`, '_blank');
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Your Website</title>
-  <style>
-    #ad-bottom-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      z-index: 9999;
-      background: transparent;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Your Website Content Here -->
-
-  <!-- Ad Banner at Bottom -->
-  <div id="ad-bottom-banner">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '21981773a1443e53d895847201b84176',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/21981773a1443e53d895847201b84176/invoke.js"></script>
-  </div>
-
+});
+</script>
 </body>
 </html>
